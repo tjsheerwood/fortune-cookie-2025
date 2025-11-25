@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORTUNE COOKIE 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@400;600&display=swap');
+
+        :root {
+            --blue-primary: #2E4FE8;
+            --pink-accent: #FF6B9D;
+            --green-texture: #A8D5BA;
+            --cream: #FAF8F3;
+            --black: #1A1A1A;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Textured Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(174, 214, 184, 0.03) 2px, rgba(174, 214, 184, 0.03) 4px),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(174, 214, 184, 0.03) 2px, rgba(174, 214, 184, 0.03) 4px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header Section */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .opening-hours {
+            font-size: 0.9em;
+            color: var(--blue-primary);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 5em;
+            font-weight: 700;
+            color: var(--blue-primary);
+            line-height: 0.9;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            margin: 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        h1 span {
+            display: block;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            color: var(--black);
+            margin-top: 20px;
+            font-weight: 400;
+        }
+
+        /* Cookie Section */
+        .cookie-section {
+            position: relative;
+            text-align: center;
+            margin: 80px 0;
+            min-height: 500px;
+        }
+
+        .cookie-wrapper {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .cookie-wrapper:hover {
+            transform: scale(1.05) rotate(-2deg);
+        }
+
+        /* Photo-style cookie */
+        .cookie-photo {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #f4d19b 0%, #f0c07a 50%, #d4a960 100%);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 
+                0 20px 60px rgba(0,0,0,0.15),
+                inset -10px -10px 30px rgba(212, 169, 96, 0.3);
+            overflow: hidden;
+        }
+
+        /* Cookie texture overlay */
+        .cookie-photo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(212, 169, 96, 0.3) 2px, transparent 2px),
+                radial-gradient(circle at 60% 70%, rgba(212, 169, 96, 0.3) 2px, transparent 2px),
+                radial-gradient(circle at 80% 20%, rgba(212, 169, 96, 0.3) 2px, transparent 2px),
+                radial-gradient(circle at 40% 80%, rgba(212, 169, 96, 0.3) 2px, transparent 2px);
+            background-size: 100px 100px;
+        }
+
+        /* Cookie fold */
+        .cookie-fold {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 200px;
+            background: linear-gradient(90deg, 
+                rgba(230, 184, 122, 0.8) 0%,
+                rgba(240, 192, 122, 0.6) 50%,
+                rgba(230, 184, 122, 0.8) 100%);
+            border-radius: 20px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .cookie-wrapper.cracking {
+            animation: crack 0.8s ease-out;
+        }
+
+        @keyframes crack {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(-8deg); }
+            50% { transform: scale(0.95) rotate(8deg); }
+            75% { transform: scale(1.05) rotate(-4deg); }
+        }
+
+        /* Bold Typography Overlays */
+        .text-overlay {
+            position: absolute;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            pointer-events: none;
+        }
+
+        .click-text {
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-3deg);
+            font-size: 2em;
+            color: var(--blue-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .arrow-emoji {
+            position: absolute;
+            font-size: 3em;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) rotate(-3deg) translateY(0); }
+            50% { transform: translateX(-50%) rotate(-3deg) translateY(-10px); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-15px); }
+        }
+
+        /* Fortune Display - Collage Style */
+        .fortune-display {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.5s ease;
+            position: relative;
+        }
+
+        .fortune-display.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .fortune-card {
+            background: white;
+            padding: 60px 50px;
+            position: relative;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.12);
+            margin: 40px 0;
+            transform: rotate(-1deg);
+        }
+
+        /* Tape effect */
+        .fortune-card::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .fortune-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2em;
+            color: var(--blue-primary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .fortune-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.8em;
+            line-height: 1.2;
+            color: var(--black);
+            font-weight: 700;
+            margin: 30px 0;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        /* Receipt style lucky numbers */
+        .receipt-section {
+            background: white;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            font-family: 'Courier New', monospace;
+            transform: rotate(2deg);
+            border: 1px dashed rgba(0,0,0,0.1);
+        }
+
+        .receipt-header {
+            text-align: center;
+            font-size: 1em;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .receipt-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed rgba(0,0,0,0.1);
+        }
+
+        .lucky-numbers-display {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .number-badge {
+            background: var(--blue-primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.3em;
+            box-shadow: 0 5px 15px rgba(46, 79, 232, 0.3);
+            transform: rotate(-5deg);
+        }
+
+        .number-badge:nth-child(even) {
+            transform: rotate(5deg);
+        }
+
+        /* Buttons - Bold Style */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 50px 0;
+        }
+
+        .btn {
+            font-family: 'Space Grotesk', sans-serif;
+            padding: 18px 35px;
+            border: none;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--blue-primary);
+            color: white;
+            box-shadow: 0 8px 25px rgba(46, 79, 232, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #1E3FD8;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(46, 79, 232, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--blue-primary);
+            border: 3px solid var(--blue-primary);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .btn-secondary:hover {
+            background: var(--blue-primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .btn-accent {
+            background: var(--pink-accent);
+            color: white;
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.3);
+        }
+
+        .btn-accent:hover {
+            background: #FF5089;
+            transform: translateY(-3px);
+        }
+
+        /* Decorative Elements */
+        .deco-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .deco-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--blue-primary);
+            top: 100px;
+            right: -150px;
+        }
+
+        .deco-2 {
+            width: 200px;
+            height: 200px;
+            background: var(--pink-accent);
+            bottom: 200px;
+            left: -100px;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Canvas for IG story */
+        #storyCanvas {
+            display: none;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--blue-primary);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            font-size: 1.1em;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3em;
+            }
+
+            .cookie-photo {
+                width: 280px;
+                height: 280px;
+            }
+
+            .fortune-text {
+                font-size: 1.8em;
+            }
+
+            .fortune-card {
+                padding: 40px 30px;
+            }
+
+            .btn {
+                padding: 15px 25px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="deco-circle deco-1"></div>
+    <div class="deco-circle deco-2"></div>
+
+    <div class="container">
+        <header>
+            <div class="opening-hours">✨ FORTUNE AVAILABLE 24/7 ✨</div>
+            <h1>
+                <span>GRAB</span>
+                <span>YOUR</span>
+                <span>FORTUNE</span>
+            </h1>
+            <p class="subtitle">One click. One cookie. Your destiny awaits.</p>
+        </header>
+
+        <div class="cookie-section" id="cookieSection">
+            <div class="cookie-wrapper" id="cookieWrapper" onclick="crackCookie()">
+                <div class="text-overlay click-text">CLICK ME!</div>
+                <div class="cookie-photo">
+                    <div class="cookie-fold"></div>
+                </div>
+                <div class="arrow-emoji">👇</div>
+            </div>
+        </div>
+
+        <div class="fortune-display" id="fortuneDisplay">
+            <div class="fortune-card">
+                <div class="fortune-label">YOUR 2025 FORTUNE:</div>
+                <div class="fortune-text" id="fortuneText"></div>
+            </div>
+
+            <div class="receipt-section">
+                <div class="receipt-header">★ RECEIPTIFY ★</div>
+                <div class="receipt-line">
+                    <span>FORTUNE ID:</span>
+                    <span id="fortuneId">#2025</span>
+                </div>
+                <div class="receipt-line">
+                    <span>DATE:</span>
+                    <span id="fortuneDate"></span>
+                </div>
+                <div class="receipt-line" style="border: none; margin-top: 20px;">
+                    <span style="font-weight: bold;">LUCKY NUMBERS:</span>
+                </div>
+                <div class="lucky-numbers-display" id="luckyNumbers"></div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="shareToInstagram()">
+                    📱 SHARE TO IG STORY
+                </button>
+                <button class="btn btn-accent" onclick="downloadImage()">
+                    💾 DOWNLOAD
+                </button>
+                <button class="btn btn-secondary" onclick="getNewFortune()">
+                    🔄 TRY AGAIN
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="storyCanvas" width="1080" height="1920"></canvas>
+    
+    <div class="notification" id="notification">
+        ✓ Image saved to downloads!
+    </div>
+
+    <script>
+        const fortunes = [
+            "YOUR CREATIVITY WILL UNLOCK NEW OPPORTUNITIES",
+            "A EXCITING JOURNEY AWAITS YOU THIS YEAR",
+            "YOUR KINDNESS RETURNS TO YOU TENFOLD",
+            "BIG CHANGES COMING—EMBRACE WITH COURAGE",
+            "SUCCESS COMES TO THOSE WHO BELIEVE",
+            "YOUR PASSION PROJECT WILL FLOURISH",
+            "NEW FRIENDSHIPS BRING UNEXPECTED JOY",
+            "TRUST YOUR INTUITION—IT GUIDES YOU WELL",
+            "FINANCIAL ABUNDANCE FLOWS TO YOU",
+            "YOUR AUTHENTIC SELF IS YOUR STRENGTH",
+            "LOVE AND LAUGHTER FILL YOUR DAYS",
+            "LONG-AWAITED OPPORTUNITY PRESENTS ITSELF",
+            "YOUR HARD WORK BEARS SWEET FRUIT",
+            "ADVENTURE AND DISCOVERY IN YOUR FUTURE",
+            "YOU INSPIRE OTHERS WITHOUT TRYING",
+            "PEACE AND CLARITY GUIDE YOUR DECISIONS",
+            "YOUR TALENTS WILL BE CELEBRATED",
+            "NEW SKILLS OPEN EXCITING DOORS",
+            "YOUR GENEROSITY CREATES RIPPLES",
+            "THIS IS YOUR YEAR TO SHINE",
+            "UNEXPECTED BLESSINGS HEADING YOUR WAY",
+            "YOUR RESILIENCE WILL AMAZE YOU",
+            "CREATIVE COLLABORATIONS BRING SUCCESS",
+            "HEALTH AND VITALITY YOUR COMPANIONS",
+            "YOUR VOICE WILL BE HEARD",
+            "BALANCE AND HARMONY GRACE YOUR LIFE",
+            "BOLD MOVES LEAD TO REMARKABLE OUTCOMES",
+            "YOUR PATIENCE REWARDED ABUNDANTLY",
+            "JOYFUL SURPRISES AROUND EVERY CORNER",
+            "YOU ARE EXACTLY WHERE YOU NEED TO BE"
+        ];
+
+        let currentFortune = "";
+        let luckyNumbers = [];
+        let fortuneId = 0;
+
+        function crackCookie() {
+            const wrapper = document.getElementById('cookieWrapper');
+            const section = document.getElementById('cookieSection');
+            const display = document.getElementById('fortuneDisplay');
+            
+            // Crack animation
+            wrapper.classList.add('cracking');
+            createConfetti();
+            
+            setTimeout(() => {
+                section.style.opacity = '0';
+                section.style.transform = 'scale(0.8)';
+                
+                setTimeout(() => {
+                    section.style.display = 'none';
+                    displayFortune();
+                    display.classList.add('show');
+                }, 500);
+            }, 800);
+        }
+
+        function displayFortune() {
+            // Random fortune
+            currentFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+            fortuneId = Math.floor(Math.random() * 9000) + 1000;
+            
+            // Lucky numbers
+            luckyNumbers = [];
+            while(luckyNumbers.length < 5) {
+                const num = Math.floor(Math.random() * 50) + 1;
+                if(!luckyNumbers.includes(num)) {
+                    luckyNumbers.push(num);
+                }
+            }
+            luckyNumbers.sort((a, b) => a - b);
+            
+            // Display
+            document.getElementById('fortuneText').textContent = currentFortune;
+            document.getElementById('fortuneId').textContent = `#${fortuneId}`;
+            
+            const today = new Date();
+            document.getElementById('fortuneDate').textContent = 
+                today.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            
+            const numbersHTML = luckyNumbers.map(num => 
+                `<div class="number-badge">${num}</div>`
+            ).join('');
+            document.getElementById('luckyNumbers').innerHTML = numbersHTML;
+        }
+
+        function createConfetti() {
+            const colors = ['#2E4FE8', '#FF6B9D', '#A8D5BA', '#FFD700'];
+            for(let i = 0; i < 60; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-20px';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animation = `confetti-fall ${2 + Math.random() * 2}s linear`;
+                    confetti.style.animationDelay = Math.random() * 0.3 + 's';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 4000);
+                }, i * 40);
+            }
+        }
+
+        function downloadImage() {
+            createStoryImage();
+            
+            const canvas = document.getElementById('storyCanvas');
+            const link = document.createElement('a');
+            link.download = `fortune-2025-${fortuneId}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            
+            showNotification();
+        }
+
+        function shareToInstagram() {
+            createStoryImage();
+            
+            if(/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                downloadImage();
+                setTimeout(() => {
+                    alert('📱 Image saved!\n\n1. Open Instagram\n2. Tap Your Story\n3. Select the image\n4. Share it!');
+                }, 500);
+            } else {
+                downloadImage();
+                alert('📱 Image downloaded!\n\nTransfer to your phone and share on Instagram Stories!');
+            }
+        }
+
+        function createStoryImage() {
+            const canvas = document.getElementById('storyCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Background - textured cream
+            ctx.fillStyle = '#FAF8F3';
+            ctx.fillRect(0, 0, 1080, 1920);
+            
+            // Texture pattern
+            ctx.strokeStyle = 'rgba(168, 213, 186, 0.1)';
+            ctx.lineWidth = 2;
+            for(let i = 0; i < 1080; i += 4) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, 1920);
+                ctx.stroke();
+            }
+            
+            // Decorative circles
+            ctx.fillStyle = 'rgba(46, 79, 232, 0.08)';
+            ctx.beginPath();
+            ctx.arc(900, 300, 200, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = 'rgba(255, 107, 157, 0.08)';
+            ctx.beginPath();
+            ctx.arc(180, 1600, 180, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Top text
+            ctx.fillStyle = '#2E4FE8';
+            ctx.font = '600 42px Inter';
+            ctx.textAlign = 'center';
+            ctx.fillText('✨ YOUR 2025 FORTUNE ✨', 540, 180);
+            
+            // Main fortune - white card with shadow
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(95, 295, 890, 650);
+            ctx.fillStyle = 'white';
+            ctx.fillRect(90, 290, 900, 650);
+            
+            // Tape effect
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.lineWidth = 2;
+            ctx.fillRect(440, 260, 200, 40);
+            ctx.strokeRect(440, 260, 200, 40);
+            
+            // Fortune text
+            ctx.fillStyle = '#1A1A1A';
+            ctx.font = 'bold 72px "Space Grotesk", sans-serif';
+            ctx.textAlign = 'center';
+            
+            // Word wrap
+            const words = currentFortune.split(' ');
+            let line = '';
+            let y = 500;
+            const lineHeight = 90;
+            const maxWidth = 800;
+            
+            words.forEach((word) => {
+                const testLine = line + word + ' ';
+                const metrics = ctx.measureText(testLine);
+                
+                if (metrics.width > maxWidth && line !== '') {
+                    ctx.fillText(line.trim(), 540, y);
+                    line = word + ' ';
+                    y += lineHeight;
+                } else {
+                    line = testLine;
+                }
+            });
+            ctx.fillText(line.trim(), 540, y);
+            
+            // Receipt section
+            ctx.fillStyle = 'white';
+            ctx.fillRect(90, 1020, 900, 500);
+            
+            // Receipt dashed border
+            ctx.setLineDash([10, 5]);
+            ctx.strokeStyle = 'rgba(0, 0, 0, 0.2)';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(90, 1020, 900, 500);
+            ctx.setLineDash([]);
+            
+            // Receipt header
+            ctx.fillStyle = '#1A1A1A';
+            ctx.font = '600 38px "Courier New"';
+            ctx.fillText('★ RECEIPTIFY ★', 540, 1100);
+            
+            // Fortune ID
+            ctx.font = '400 32px "Courier New"';
+            ctx.textAlign = 'left';
+            ctx.fillText('FORTUNE ID:', 150, 1180);
+            ctx.textAlign = 'right';
+            ctx.fillText(`#${fortuneId}`, 930, 1180);
+            
+            // Lucky numbers label
+            ctx.textAlign = 'center';
+            ctx.font = 'bold 36px "Courier New"';
+            ctx.fillText('LUCKY NUMBERS:', 540, 1260);
+            
+            // Lucky numbers circles
+            const numberSpacing = 160;
+            const startX = 540 - (numberSpacing * 2);
+            
+            luckyNumbers.forEach((num, index) => {
+                const x = startX + (index * numberSpacing);
+                const y = 1370;
+                
+                // Circle
+                ctx.fillStyle = '#2E4FE8';
+                ctx.beginPath();
+                ctx.arc(x, y, 55, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Number
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 56px Inter';
+                ctx.fillText(num, x, y + 18);
+            });
+            
+            // Bottom text
+            ctx.fillStyle = '#2E4FE8';
+            ctx.font = 'bold 48px "Space Grotesk"';
+            ctx.textAlign = 'center';
+            ctx.fillText('MAKE IT HAPPEN!', 540, 1680);
+            
+            // Your handle
+            ctx.fillStyle = '#1A1A1A';
+            ctx.font = '600 36px Inter';
+            ctx.fillText('@yourhandle', 540, 1820);
+        }
+
+        function getNewFortune() {
+            const section = document.getElementById('cookieSection');
+            const display = document.getElementById('fortuneDisplay');
+            const wrapper = document.getElementById('cookieWrapper');
+            
+            display.classList.remove('show');
+            
+            setTimeout(() => {
+                section.style.display = 'block';
+                setTimeout(() => {
+                    section.style.opacity = '1';
+                    section.style.transform = 'scale(1)';
+                    wrapper.classList.remove('cracking');
+                }, 50);
+            }, 300);
+        }
+
+        function showNotification() {
+            const notification = document.getElementById('notification');
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
